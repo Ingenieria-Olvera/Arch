@@ -27,4 +27,6 @@ For the mirror I ensured that the mirror would be at a 45% angle in order for th
 
 ---
 
-### Code 
+### Electronics
+This is a clear example of what the pure electronic wiring looked like on a bread board
+![Electronics_Look](20250515_084445.jpg)
