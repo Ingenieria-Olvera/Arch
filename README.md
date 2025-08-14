@@ -41,3 +41,8 @@ And of course the display does have some problems when being looked at in a very
 ### Electronics
 This is a clear example of what the pure electronic wiring looked like on a bread board
 ![Electronics_Look](20250515_084445.jpg)
+
+-----
+
+### Code
+And lastly the code can be found within the Screen & Spotify .ino
