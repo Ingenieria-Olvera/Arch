@@ -13,21 +13,16 @@
 #include <Wire.h>
 #endif
 
-// ---- Display Setup ----
 U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI u8g2(U8G2_R0, /* cs=*/12, /* dc=*/13, /* reset=*/5);
 
-// ---- Bluetooth + Audio ----
 I2SStream i2s;
 BluetoothA2DPSink a2dp_sink(i2s);
 
-// ---- Spotify Setup ----
 Spotify sp(client_id, client_secret);
 
-// ---- Constants & Pins ----
 #define R_BUTTON 21
 #define L_BUTTON 5
 
-// ---- States ----
 bool is_connected_to_bl = false;
 bool spotify_authed = false;
 
@@ -57,20 +52,19 @@ void setup() {
     u8g2.drawStr(10, 32, "Spotify Auth Failed");
     u8g2.drawStr(10, 50, "Restart device.");
     u8g2.sendBuffer();
-    while (true);  // Stop program from continuing
+    while (true);  //  SPOTIFY CHECK
   }
 
-  // ---- I2S Config for external DAC ----
+  // DAC SETUP
   auto cfg = i2s.defaultConfig();
   cfg.pin_bck = 14; // BCK
   cfg.pin_ws = 15; //  LRC
   cfg.pin_data = 22; //  DIN => MOSI
   i2s.begin(cfg);
 
-  // ---- Start Bluetooth Sink ----
   a2dp_sink.start("ARCH");
 
-  // ---- Wait for Bluetooth Connection ----
+  // Bluetooth Connection
   while (!a2dp_sink.is_avrc_connected()) {
     u8g2.clearBuffer();
     u8g2.drawStr(20, 32, "Connect to ARCH");
@@ -89,7 +83,6 @@ void setup() {
 void loop() {
   if (!spotify_authed) return;
 
-  // Refresh Spotify client
   sp.handle_client();
 
   String song_name = sp.current_track_name();
@@ -107,7 +100,7 @@ void loop() {
   u8g2.drawStr(0, 50, song_name_array);
   u8g2.sendBuffer();
 
-  delay(10000);  // Check every 10 seconds
+  delay(10000);  
 }
 
 void connect_wifi() {
@@ -138,7 +131,7 @@ void connect_wifi() {
     u8g2.drawStr(10, 32, "WiFi Failed.");
     u8g2.drawStr(10, 50, "Restart device.");
     u8g2.sendBuffer();
-    while (true);  // Stop here
+    while (true);  // If wifi fails then try again type
   }
 
   Serial.println("\nConnected to WiFi");
@@ -148,7 +141,7 @@ void authenticate_spotify() {
   Serial.println("Authenticating with Spotify.");
   unsigned long startAttempt = millis();
 
-  while (!sp.is_auth() && millis() - startAttempt < 10000) {  // 10 second timeout
+  while (!sp.is_auth() && millis() - startAttempt < 10000) {  
     sp.handle_client();
   }
 
