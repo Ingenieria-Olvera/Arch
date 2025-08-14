@@ -23,7 +23,7 @@ For the mirror I ensured that the mirror would be at a 45% angle in order for th
 ![OledandMirrorHolder](20250513_132751.jpg)
 
 And of course the display does have some problems when being looked at in a very bright room, yet it is still visiable and doing its job in any light. And while it is hard to take a picture that truly conveys what it's like seeing a sort of holographic image, this is the best I got.
-![lens_image](20250209_17542_(1).jpg)
+![lens_image](20250209_17542%(1).jpg)
 
 
 ---
